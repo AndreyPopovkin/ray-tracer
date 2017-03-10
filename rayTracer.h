@@ -5,8 +5,8 @@
 #include "sphere.h"
 #include "ray.h"
 
-    class RayTracer{
-std::vector<Object*> objects;
+class RayTracer{
+    std::vector<Object*> objects;
 public:
     void pushSphere(const Sphere&);
     RayTracer();

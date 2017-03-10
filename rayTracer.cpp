@@ -9,7 +9,6 @@ RayTracer::RayTracer() {}
 pair<Ray, bool> RayTracer::traceRay(const Ray& ray) const{
     double distToNearest2 = -1;
     Ray answer;
-
     for (auto item : objects) {
         auto intersection = item.intersect(ray);
         if (intersection.second) {
@@ -22,4 +21,3 @@ pair<Ray, bool> RayTracer::traceRay(const Ray& ray) const{
     }
     return {answer, distToNearest2 >= 0};
 }
-

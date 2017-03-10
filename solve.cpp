@@ -1,8 +1,16 @@
 #include "header.h"
 
+//#include "SDL2/SDL.h"
+
 Uint32 get_color(Uint32 r=0, Uint32 g=0, Uint32 b=0, Uint32 a=0) {
   return r + (g << 8) + (b << 16) + (a << 24);
 }
+
+SDL_Renderer *renderer;
+SDL_Texture *texture;
+SDL_Window *window;
+
+Uint32 pixels[WINDOW_WIDTH * WINDOW_HEIGHT];
 
 const Uint32 BLUE = get_color(0, 0, 255);
 const Uint32 RED = get_color(255);
@@ -46,7 +54,7 @@ void draw(int x, int y, Uint32 color) {
 }
 
 Uint32 grey(int bright) {
-  return bright + (0 << 8) + (bright << 16);
+  return 0 + (0 << 8) + (bright << 16);
 }
 
   vector<Sphere> spheres;
@@ -84,8 +92,8 @@ void trace(int x, int y, int r){
 Uint32 getMinMaxDiff(int x, int y, int r) {
   Uint32 min_ = (300 << 16);
   Uint32 max_ = 0;
-  for (int i = -2; i <= 2; ++i)
-    for (int q = -2; q <= 2; ++q) {
+  for (int i = -1; i <= 1; ++i)
+    for (int q = -1; q <= 1; ++q) {
       min_ = min(min_, pixels[(y + i * r) * WINDOW_WIDTH + x + q * r]);
       max_ = max(max_, pixels[(y + i * r) * WINDOW_WIDTH + x + q * r]);
     }
@@ -102,6 +110,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
   spheres.emplace_back(Point(400, 0, 0), 250);
   spheres.emplace_back(Point(100, 250, 0), 40);
+  //spheres.emplace_back(Point(100, -50, -250), 50);
+  //srand(1997);
+  //for (int i = 0; i < 5; ++i) {
+  //  spheres.emplace_back(Point(400 + rand() % 100, rand() % 600 - 300, rand() % 600 - 300), 100);
+  //}
   stars.resize(2);
 
   double d2 = 0;
@@ -116,21 +129,23 @@ int WINAPI WinMain(HINSTANCE hInstance,
         trace(i, q, 2);
       }
     }
+    
     for (int i = 4; i < WINDOW_WIDTH - 4; i += 2) {
       for (int q = 4; q < WINDOW_HEIGHT - 4; q += 2) {
         if (getMinMaxDiff(i, q, 2) > (30 << 16)) {
           
           trace(i, q, 1);
           trace(i, q + 1, 1);
+          //draw(i, q + 1, BLUE);
           trace(i + 1, q, 1);
           trace(i + 1, q + 1, 1);
         }
       }
     }
+
     cout << (clock() - t) / CLOCKS_PER_SEC << "\n";
     get_events();
     update();
-    //SDL_Delay(10);
   }
 
 
