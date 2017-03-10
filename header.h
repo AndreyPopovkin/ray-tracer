@@ -16,7 +16,6 @@ const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
 const double PI = 3.14159265359;
 
-#include "SDL2/SDL.h"
 #include "vector.h"
 #include "point.h"
 #include "ray.h"
