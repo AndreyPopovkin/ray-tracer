@@ -5,12 +5,12 @@
 #include "sphere.h"
 #include "ray.h"
 
-    class RayTracer{
-std::vector<Object*> objects;
+class RayTracer{
+    std::vector<Object*> objects;
 public:
     void pushSphere(const Sphere&);
     RayTracer();
-    Ray traceRay(const Ray&) const;
+    std::pair<Ray, bool> traceRay(const Ray&) const;
 };
 
 #endif

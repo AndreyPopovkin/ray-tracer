@@ -43,3 +43,8 @@ Vector Point::operator- (const Point& p) const{
 void Point::print() const{
 	std::cout << "(" <<  x << ' ' << y << ' ' << z << ")\n";
 }
+
+std::ostream& operator<<(std::ostream& os, const Point& p) {
+    os << "Point( " << p.x << " : " << p.y << " : " << p.z << " )";
+    return os;
+}

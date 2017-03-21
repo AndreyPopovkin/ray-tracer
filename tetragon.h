@@ -4,12 +4,14 @@
 #include "point.h"
 #include "object.h"
 #include "ray.h"
+#include <vector>
 
 class Tetragon: public Object{
 public:
-    vector<Point> p;
+    std::vector<Point> p;
     Tetragon(const Point&, const Point&, const Point&, const Point&);
-    virtual pair<Ray, bool> intersect(const Ray&);
+    Tetragon();
+    virtual std::pair<Ray, bool> intersect(const Ray&);
 };
 
 #endif

@@ -11,10 +11,6 @@ std::pair<Ray, bool> Sphere::intersect(const Ray& ray) {
 		double distanceToSurface = lenToDistancePoint - std::sqrt(r * r - distance * distance);
 		Point intersection = ray.source + ray.direction.scale(distanceToSurface);
 		Vector normal = (intersection - center).scale(1);
-
-		//intersection.print();
-		//int a;
-		//std::cin >> a;
 		return {Ray(intersection, normal), 1};
 	} else {
 		// TODO

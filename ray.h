@@ -13,4 +13,6 @@ public:
 	Ray(const Point&, const Vector&);
 };
 
+std::ostream& operator<<(std::ostream&, const Ray&);
+
 #endif

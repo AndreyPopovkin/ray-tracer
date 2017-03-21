@@ -19,6 +19,7 @@ public:
 	Point operator- (const Vector&) const;
 	Vector operator- (const Point&) const;
 	void print() const;
+	friend std::ostream& operator<<(std::ostream&, const Point&);
 };
 
 #endif

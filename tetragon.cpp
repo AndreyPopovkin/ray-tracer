@@ -7,4 +7,9 @@ Tetragon::Tetragon(const Point& p1, const Point& p2, const Point& p3, const Poin
     p.push_back(p4);
 }
 
-virtual Tetragon::pair<Ray, bool> intersect(const Ray&);
+Tetragon::Tetragon() {}
+
+std::pair<Ray, bool> Tetragon::intersect(const Ray&) {
+    // TODO
+    throw 1;
+}

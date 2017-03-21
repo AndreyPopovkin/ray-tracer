@@ -60,3 +60,8 @@ Vector Vector::scale(double l) const{
 Vector Vector::operator* (double l) const{
 	return Vector(x * l, y * l, z * l);
 }
+
+std::ostream& operator<<(std::ostream& os, const Vector& v) {
+    os << "Vector( " << v.x << " : " << v.y << " : " << v.z << " )";
+    return os;
+}

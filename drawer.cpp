@@ -15,7 +15,7 @@ void Drawer::update() {
     SDL_UpdateTexture(texture, NULL, pixels, widthScreenResolution * sizeof(Uint32));
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
-    DL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 void Drawer::draw(int x, int y, Uint32 color) {

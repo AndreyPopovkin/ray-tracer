@@ -16,9 +16,7 @@ const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
 const double PI = 3.14159265359;
 
-#include "vector.h"
-#include "point.h"
-#include "ray.h"
-#include "sphere.h"
+#include "SDL2mingw\x86_64-w64-mingw32\include\SDL2\SDL.h"
+#include "scene.h"
 
 #endif

@@ -2,6 +2,7 @@
 #define RAY_TRACER_VECTOR
 
 #include <cmath>
+#include <iostream>
 
 class Vector{
 	double x, y, z;
@@ -21,6 +22,7 @@ public:
 	double len() const;
 	Vector scale(double) const;
 	Vector operator* (double) const;
+	friend std::ostream& operator<<(std::ostream&, const Vector&);
 };
 
 #endif
