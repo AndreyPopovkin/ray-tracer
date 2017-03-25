@@ -15,6 +15,7 @@ public:
     Drawer(int = 500, int = 500);
     void update();
     void draw(int, int, Uint32);
+    Uint32 getColor(int, int);
     bool getWindowEvents();
     ~Drawer();
 };

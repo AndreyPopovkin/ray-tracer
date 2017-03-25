@@ -8,6 +8,8 @@ class Object{
 public:
 	// return normal ray-vector to surface in first intersection point
 	virtual std::pair<Ray, bool> intersect(const Ray&) = 0;
+    virtual bool simple_intersect(const Ray&, double&) = 0;
+    virtual ~Object() {}
 };
 
 #endif

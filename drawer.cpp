@@ -29,7 +29,6 @@ bool Drawer::getWindowEvents() {
         {
         case SDL_QUIT:
             return 0;
-            break;
         }
     }
     return 1;
@@ -41,4 +40,8 @@ Drawer::~Drawer() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window); 
     SDL_Quit(); 
+}
+
+Uint32 Drawer::getColor(int x, int y) {
+    return pixels[y * widthScreenResolution + x];
 }

@@ -65,3 +65,7 @@ std::ostream& operator<<(std::ostream& os, const Vector& v) {
     os << "Vector( " << v.x << " : " << v.y << " : " << v.z << " )";
     return os;
 }
+
+Vector operator -(const Vector& v) {
+    return Vector(-v.x, -v.y, -v.z);
+}

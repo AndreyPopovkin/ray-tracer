@@ -23,6 +23,7 @@ public:
 	Vector scale(double) const;
 	Vector operator* (double) const;
 	friend std::ostream& operator<<(std::ostream&, const Vector&);
+	friend Vector operator -(const Vector&);
 };
 
 #endif

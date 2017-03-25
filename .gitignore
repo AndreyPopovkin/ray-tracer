@@ -1,1 +1,7 @@
 log
+CMakeCache.txt
+CMakeFiles/
+Makefile
+RayTracer.sublime-project
+RayTracer.sublime-workspace
+cmake_install.cmake

@@ -18,6 +18,32 @@ std::pair<Ray, bool> Sphere::intersect(const Ray& ray) {
 	}
 }
 
+bool Sphere::simple_intersect(const Ray& ray, double& dist) {
+	Vector k = ray.source - center;
+	double b = k * ray.direction;
+	double c = k * k - r * r;
+	double d = b * b - c;
+
+	if (d >= 0) {
+		double sqrtfd = sqrt(d);
+
+		double t1 = -b + sqrtfd;
+		double t2 = -b - sqrtfd;
+
+		double min_t  = std::min(t1,t2);
+		double max_t = std::max(t1,t2);
+
+		double t = (min_t >= 0) ? min_t : max_t;
+
+		dist = t;
+
+		return (t > SPHERE_EPS);
+	}
+	return 0;
+}
+
 Sphere::Sphere() {}
+
+Sphere::~Sphere() {}
 
 Sphere::Sphere(const Point& p, double r): center(p), r(r) {}
