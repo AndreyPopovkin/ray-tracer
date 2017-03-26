@@ -30,29 +30,30 @@ public:
                 stin >> x >> y >> z;
                 p.emplace_back(x, y, z);
             } else if (str[0] == 'f') {
+                //std::cout << "!\n";
                 int p1, p2, p3, p4;
                 int oldptr = 2;
                 int ptr = 2;
                 while (ptr < (int)str.size() && str[ptr] != '/') ++ptr;
-                p1 = std::atoi(str.substr(oldptr, ptr).c_str());
+                p1 = std::atoi(str.substr(oldptr, ptr - oldptr).c_str());
                 while (ptr < (int)str.size() && str[ptr] != ' ') ++ptr;
                 ++ptr;
                 oldptr = ptr;
                 while (ptr < (int)str.size() && str[ptr] != '/') ++ptr;
-                p2 = std::atoi(str.substr(oldptr, ptr).c_str());
+                p2 = std::atoi(str.substr(oldptr, ptr - oldptr).c_str());
                 while (ptr < (int)str.size() && str[ptr] != ' ') ++ptr;
                 ++ptr;
                 oldptr = ptr;
                 while (ptr < (int)str.size() && str[ptr] != '/') ++ptr;
-                p3 = std::atoi(str.substr(oldptr, ptr).c_str());
+                p3 = std::atoi(str.substr(oldptr, ptr - oldptr).c_str());
                 while (ptr < (int)str.size() && str[ptr] != ' ') ++ptr;
-                if (ptr + 1 == (int)str.size())
+                if (ptr + 3 >= (int)str.size())
                     ans.emplace_back(p[p1 - 1], p[p2 - 1], p[p3 - 1]);
                 else {  
                     ++ptr;
                     oldptr = ptr;
                     while (ptr < (int)str.size() && str[ptr] != '/') ++ptr;
-                    p4 = std::atoi(str.substr(oldptr, ptr).c_str());
+                    p4 = std::atoi(str.substr(oldptr, ptr - oldptr).c_str());
                     ans2.emplace_back(p[p1 - 1], p[p2 - 1], p[p3 - 1], p[p4 - 1]);
                 }
                 //cout << ans.back() << "\n";

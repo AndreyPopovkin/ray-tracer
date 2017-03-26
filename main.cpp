@@ -27,16 +27,25 @@ int WINAPI WinMain(HINSTANCE hInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow )
 {
+    /*Tetragon screen(
+            Point(0, 320, -230),
+            Point(0, 320, 230),
+            Point(0, -320, 230),
+            Point(0, -320, -230)
+        );*/
+
     Tetragon screen(
-            Point(320 / 4, 230 / 4 + 50, 4000),
-            Point(-320 / 4, 230 / 4 + 50, 4000),
-            Point(-320 / 4, -230 / 4 + 50, 4000),
-            Point(320 / 4, -230 / 4 + 50, 4000)
+            Point(4000, 320 / 300. / 3 + 2.5, -230 / 300. / 3),
+            Point(4000, 320 / 300. / 3 + 2.5, 230 / 300. / 3),
+            Point(4000, -320 / 300. / 3 + 2.5, 230 / 300. / 3),
+            Point(4000, -320 / 300. / 3 + 2.5, -230 / 300. / 3)
         );
-    Scene scene(Point(0, 0, 10000), screen);
+    
+    Scene scene(Point(10000, 0, 0), screen);//, 200, 160);
 
     
-    Parcer parcer("04.obj");
+    Parcer parcer("Cartoon_female_base_model_002_clean_mesh.obj");
+    //Parcer parcer("04.obj");
 
     auto v = parcer.parce();
 
@@ -47,18 +56,18 @@ int WINAPI WinMain(HINSTANCE hInstance,
     for (auto item : v.second)
         scene.pushTetragon(item);
     
-    //scene.pushSphere(Sphere(Point(400, 0, 0), 250));
+    //scene.pushSphere(Sphere(Point(0, 0, 0), 100));
     //scene.pushSphere(Sphere(Point(100, 250, 0), 40));
     //scene.pushSphere(Sphere(Point(100, -250, 0), 40));
     //scene.pushSphere(Sphere(Point(100, 0, 250), 40));
-    //triangulateSphere(scene, Sphere(Point(0, 50, 0), 40));
+    //triangulateSphere(scene, Sphere(Point(0, 0, 0), 100));
     //scene.pushSphere(Sphere(Point(0, 0, -250), 40));
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(50, 100, 0), Point(50, 0, 100)));
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(90, -100, 0), Point(60, 0, 100)));
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(50, 100, 0), Point(70, 0, -100)));
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(90, -100, 0), Point(80, 0, -100)));
     //scene.pushStar(Star(Point(-10000, 10000, 10000)));
-    scene.pushStar(Star(Point(-10000, 4000, 10000)));
+    scene.pushStar(Star(Point(10000, 1000, 1000)));
     //double t = clock();
     scene.update();
     //std::cout << (clock() - t) / CLOCKS_PER_SEC << "\n";
