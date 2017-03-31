@@ -47,3 +47,11 @@ Sphere::Sphere() {}
 Sphere::~Sphere() {}
 
 Sphere::Sphere(const Point& p, double r): center(p), r(r) {}
+
+double Sphere::maxPos(int axis) {
+    return center.maxPos(axis) + r;
+}
+
+double Sphere::minPos(int axis) {
+    return center.minPos(axis) - r;
+}

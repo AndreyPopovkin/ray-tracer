@@ -5,3 +5,5 @@ Makefile
 RayTracer.sublime-project
 RayTracer.sublime-workspace
 cmake_install.cmake
+Building_LevelModular_Top_LOD0.obj
+Z3_OBJ.obj

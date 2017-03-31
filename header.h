@@ -12,6 +12,7 @@ using namespace std;
 #include <vector>
 #include <cmath>
 #include <chrono>
+#include <atomic>
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;

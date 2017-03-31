@@ -24,6 +24,7 @@ public:
 	Vector operator* (double) const;
 	friend std::ostream& operator<<(std::ostream&, const Vector&);
 	friend Vector operator -(const Vector&);
+	double valAlongAxis(int axis) const;
 };
 
 #endif

@@ -76,3 +76,11 @@ std::ostream& operator<<(std::ostream& os, const Triangle& p) {
     os << "Triangle( " << p.p1 << " : " << p.p2 << " : " << p.p3 << " )";
     return os;
 }
+
+double Triangle::maxPos(int axis) {
+    return std::max(std::max(p1.maxPos(axis), p2.maxPos(axis)), p3.maxPos(axis));
+}
+
+double Triangle::minPos(int axis) {
+    return std::min(std::min(p1.minPos(axis), p2.minPos(axis)), p3.minPos(axis));
+}

@@ -50,7 +50,7 @@ int Scene::bitReverse(int n) {
 
 void Scene::antiAliasing(int razor, int precision) {
     // razor отсекает пиксели, которые нет необходимости уточнять
-    // precision -- корень из количества лучей
+    // precision -- количество лучей: (precision * 2 + 1) ^ 2
     Point start = screen.getP(0);
     Vector dx = (screen.getP(1) - screen.getP(0)) * (1. / widthScreenResolution);
     Vector dy = (screen.getP(2) - screen.getP(1)) * (1. / heightScreenResolution);
@@ -67,7 +67,11 @@ void Scene::antiAliasing(int razor, int precision) {
                             dy * (y + ddy / (double)(precision + 1))) - eye;
                         sum += getTracedColor(sight);
                     }
-                updates.push_back({{x, y}, sum / precision * precision});
+                updates.push_back({{x, y}, 
+                    sum / ((precision * 2 + 1) * (precision * 2 + 1))
+                    //(sum & (255 * 256)) / ((precision * 2 + 1) * (precision * 2 + 1)) * 256 + 
+                    //(sum & (255 * 256 * 256)) / ((precision * 2 + 1) * (precision * 2 + 1)) * 256 * 256
+                });
             }
         }
     for (auto p : updates)
@@ -108,6 +112,9 @@ void Scene::updateByOneLines() {
 }
 
 void Scene::update() {
+    rayTracer.buildKD();
+    rayTracer.resetCounter();
+
     auto begin = std::chrono::high_resolution_clock::now();
 
     step_a.store(0);
@@ -126,10 +133,14 @@ void Scene::update() {
     for (auto i = threads.begin(); i != threads.end(); ++i)
         i->join();
     
-    antiAliasing();
+    //antiAliasing();
 
     auto end = std::chrono::high_resolution_clock::now();
-    std::cout << "all rays traced during " << std::chrono::duration_cast<std::chrono::milliseconds>(end-begin).count() / 1000. << "s" << std::endl;
+    std::cerr << "all" << " rays traced during " << 
+        std::chrono::duration_cast<std::chrono::milliseconds>(end-begin).count() / 1000. << "s" << std::endl;
+    std::cerr << "avg: "
+        << rayTracer.count() * 1. / widthScreenResolution / heightScreenResolution
+        << " intersections per ray\n";
 
     drawer.update();
 }

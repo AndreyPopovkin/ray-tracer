@@ -69,3 +69,7 @@ std::ostream& operator<<(std::ostream& os, const Vector& v) {
 Vector operator -(const Vector& v) {
     return Vector(-v.x, -v.y, -v.z);
 }
+
+double Vector::valAlongAxis(int axis) const{
+	return (axis == 0 ? x : (axis == 1 ? y : z));
+}

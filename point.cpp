@@ -48,3 +48,18 @@ std::ostream& operator<<(std::ostream& os, const Point& p) {
     os << "Point( " << p.x << " : " << p.y << " : " << p.z << " )";
     return os;
 }
+
+double Point::maxPos(int axis) const{
+	return (axis == 0 ? x : (axis == 1 ? y : z));
+}
+
+double Point::minPos(int axis) const{
+	return (axis == 0 ? x : (axis == 1 ? y : z));
+}
+
+
+void Point::setByAxis(int axis, double val) {
+	if (axis == 0) x = val;
+	else if (axis == 1) y = val;
+	else z = val;
+}

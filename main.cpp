@@ -1,6 +1,6 @@
 #include "header.h"
 
-const int triangPrecision = 10;
+const int triangPrecision = 300;
 
 Point getPoint(Sphere sphere, double sx, double sy) {
     double r = sphere.r;
@@ -27,36 +27,61 @@ int WINAPI WinMain(HINSTANCE hInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow )
 {
-    /*Tetragon screen(
-            Point(0, 320, -230),
-            Point(0, 320, 230),
-            Point(0, -320, 230),
-            Point(0, -320, -230)
-        );*/
-
     Tetragon screen(
-            Point(4000, 320 / 300. / 3 + 2.5, -230 / 300. / 3),
-            Point(4000, 320 / 300. / 3 + 2.5, 230 / 300. / 3),
-            Point(4000, -320 / 300. / 3 + 2.5, 230 / 300. / 3),
-            Point(4000, -320 / 300. / 3 + 2.5, -230 / 300. / 3)
+            Point(4000, 320 / 300. / 3 + 2.5, -330 / 300. / 3),
+            Point(4000, 320 / 300. / 3 + 2.5, 330 / 300. / 3),
+            Point(4000, -320 / 300. / 3 + 2.5, 330 / 300. / 3),
+            Point(4000, -320 / 300. / 3 + 2.5, -330 / 300. / 3)
         );
+    Scene scene(Point(10000, 0, 0), screen, 640, 480, 4);
     
-    Scene scene(Point(10000, 0, 0), screen);//, 200, 160);
-
-    
+    /*
+    Tetragon screen(
+            Point(4000, 320 / 400. + 3.1, -330 / 400.),
+            Point(4000, 320 / 400. + 3.1, 330 / 400.),
+            Point(4000, -320 / 400. + 3.1, 330 / 400.),
+            Point(4000, -320 / 400. + 3.1, -330 / 400.)
+        );
+    Scene scene(Point(10000, 3.1, 0), screen, 640, 480, 4);
+    */
     Parcer parcer("Cartoon_female_base_model_002_clean_mesh.obj");
+    scene.pushStar(Star(Point(10000, 1000, 1000)));
+    
+
     //Parcer parcer("04.obj");
 
+    /*
+    Tetragon screen(
+        Point(0, 320 / 2, -230 / 2),
+        Point(0, 320 / 2, 230 / 2),
+        Point(0, -320 / 2, 230 / 2),
+        Point(0, -320 / 2, -230 / 2)
+    );
+    Scene scene(Point(-10000, 10000, 10000), screen, 640, 480, 4);
+    scene.pushStar(Star(Point(10000, 1000, 1000)));
+    Parcer parcer("Z3_OBJ.obj");
+    */
     auto v = parcer.parce();
-
-    std::cout << v.first.size() << ' ' << v.second.size() << "\n";
+    std::cout << "all " << v.first.size() << "triangles\n";
+    std::cout << "and " << v.second.size() << " tetragons loaded\n";
 
     for (auto item : v.first)
         scene.pushTriangle(item);
     for (auto item : v.second)
         scene.pushTetragon(item);
     
-    //scene.pushSphere(Sphere(Point(0, 0, 0), 100));
+    /*
+    Tetragon screen(
+        Point(4000, -440, 320 ),
+        Point(4000, 440, 320 ),
+        Point(4000, 440, -320 ),
+        Point(4000, -440, -320 )
+    );
+    Scene scene(Point(-10000, 0, 0), screen, 640, 480, 4);
+    scene.pushStar(Star(Point(-10000, 1000, 1000)));
+    scene.pushSphere(Sphere(Point(0, 0, 0), 100));
+    */
+
     //scene.pushSphere(Sphere(Point(100, 250, 0), 40));
     //scene.pushSphere(Sphere(Point(100, -250, 0), 40));
     //scene.pushSphere(Sphere(Point(100, 0, 250), 40));
@@ -67,7 +92,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(50, 100, 0), Point(70, 0, -100)));
     //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(90, -100, 0), Point(80, 0, -100)));
     //scene.pushStar(Star(Point(-10000, 10000, 10000)));
-    scene.pushStar(Star(Point(10000, 1000, 1000)));
     //double t = clock();
     scene.update();
     //std::cout << (clock() - t) / CLOCKS_PER_SEC << "\n";

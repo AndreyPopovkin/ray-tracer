@@ -4,7 +4,7 @@
 #include "vector.h"
 #include <iostream>
 
-class Point: public Vector{
+class Point{
 	double x, y, z;
 public:
 	Point();
@@ -15,11 +15,14 @@ public:
 	void setx(double);
 	void sety(double);
 	void setz(double);
+	void setByAxis(int axis, double);
 	Point operator+ (const Vector&) const;
 	Point operator- (const Vector&) const;
 	Vector operator- (const Point&) const;
 	void print() const;
 	friend std::ostream& operator<<(std::ostream&, const Point&);
+	double maxPos(int axis) const;
+    double minPos(int axis) const;
 };
 
 #endif

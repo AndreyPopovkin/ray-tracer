@@ -33,7 +33,7 @@ class Scene{
     int bitReverse(int);
 public:
     // экспериментально, сильно замедляет рендеринг
-    void antiAliasing(int razor=40, int precision=2);
+    void antiAliasing(int razor=40, int precision=1);
 
     int getTracedColor(const Ray&);
     void pushTetragon(const Tetragon&);

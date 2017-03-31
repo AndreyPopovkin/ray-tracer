@@ -11,7 +11,9 @@ public:
     std::vector<Point> p;
     virtual std::pair<Ray, bool> intersect(const Ray&) = 0;
     virtual bool simple_intersect(const Ray&, double&) = 0;
-    virtual ~Polygon() {}
+    virtual ~Polygon();
+    virtual double maxPos(int axis);
+    virtual double minPos(int axis);
 };
 
 #endif

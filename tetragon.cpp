@@ -7,7 +7,12 @@ Tetragon::Tetragon(const Point& p1, const Point& p2, const Point& p3, const Poin
     p.push_back(p4);
 }
 
-Tetragon::Tetragon() {}
+Tetragon::Tetragon() {
+    p.emplace_back();
+    p.emplace_back();
+    p.emplace_back();
+    p.emplace_back();
+}
 
 Tetragon::~Tetragon() {}
 

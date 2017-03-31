@@ -14,23 +14,40 @@ void RayTracer::pushTetragon(const Tetragon& tetragon) {
 
 RayTracer::RayTracer() {}
 
-std::pair<Ray, bool> RayTracer::traceRay(const Ray& ray) const{
-    double distToNearest2 = -1;
-    Ray answer;
-    for (auto item : objects) {        
-        auto intersection = item->intersect(ray);
-        if (intersection.second) {
-            double distance2 = (intersection.first.source - ray.source).len2();
-            if (distToNearest2 < 0 || distance2 < distToNearest2) {
-                distToNearest2 = distance2;
-                answer = intersection.first;
+std::pair<Ray, bool> RayTracer::traceRay(const Ray& ray) {
+    if (tree.root == nullptr) {
+        double distToNearest2 = -1;
+        Ray answer;
+        for (const auto& item : objects) {        
+            auto intersection = item->intersect(ray);
+            if (intersection.second) {
+                double distance2 = (intersection.first.source - ray.source).len2();
+                if (distToNearest2 < 0 || distance2 < distToNearest2) {
+                    distToNearest2 = distance2;
+                    answer = intersection.first;
+                }
             }
         }
+        return {answer, distToNearest2 >= 0};
+    } else {
+        auto ans = tree.traceRay(ray);
+        return ans;
     }
-    return {answer, distToNearest2 >= 0};
+}
+
+void RayTracer::buildKD() {
+    tree.build(objects);
 }
 
 RayTracer::~RayTracer() {
     for (auto item : objects)
         delete item;
+}
+
+void RayTracer::resetCounter() {
+    tree.counter.store(0);
+}
+
+int RayTracer::count() {
+    return tree.counter.load();
 }

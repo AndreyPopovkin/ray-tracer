@@ -16,6 +16,8 @@ public:
 	Sphere();
 	Sphere(const Point&, double);
     virtual ~Sphere();
+    virtual double maxPos(int axis);
+    virtual double minPos(int axis);
 };
 
 #endif

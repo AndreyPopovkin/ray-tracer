@@ -18,6 +18,8 @@ public:
     virtual bool simple_intersect(const Ray&, double&);
     virtual ~Triangle();
     friend std::ostream& operator<<(std::ostream&, const Triangle&);
+    virtual double maxPos(int axis);
+    virtual double minPos(int axis);
 };
 
 #endif

@@ -23,13 +23,13 @@ public:
 
         while (std::getline(in, str)) {
             if (str.size() == 0) continue;
-            if (str[0] == 'v') {
+            if (str.substr(0, 2) == "v ") {
                 str = str.substr(2);
                 istringstream stin(str);
                 double x, y, z;
                 stin >> x >> y >> z;
                 p.emplace_back(x, y, z);
-            } else if (str[0] == 'f') {
+            } else if (str.substr(0, 2) == "f ") {
                 //std::cout << "!\n";
                 int p1, p2, p3, p4;
                 int oldptr = 2;
