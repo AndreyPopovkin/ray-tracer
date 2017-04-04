@@ -9,7 +9,7 @@ public:
     Point position;
     double bright;
     Uint32 color;
-    Star(const Point&, double=100, Uint32=-1);
+    Star(const Point&, double=0.9, Uint32=-1);
 };
 
 #endif

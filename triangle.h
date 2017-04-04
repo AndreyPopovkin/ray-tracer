@@ -2,6 +2,7 @@
 #define RAY_TRACER_TRIANGLE
 
 #include "object.h"
+#include "polygonG.h"
 #include <vector>
 #include <iostream>
 
@@ -14,6 +15,7 @@ public:
     Point p1, p2, p3;
     Triangle(const Point&, const Point&, const Point&);
     Triangle();
+    explicit Triangle(const PolygonG&);
     virtual std::pair<Ray, bool> intersect(const Ray&);
     virtual bool simple_intersect(const Ray&, double&);
     virtual ~Triangle();

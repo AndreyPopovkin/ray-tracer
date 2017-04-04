@@ -12,6 +12,12 @@ void RayTracer::pushTetragon(const Tetragon& tetragon) {
     objects.push_back(new Tetragon(tetragon));
 }
 
+void RayTracer::pushPolygon(const PolygonG& polygon) {
+    if (polygon.p.size() == 3) objects.push_back(new Triangle(polygon));
+    //else if (polygon.p.size() == 4) objects.push_back(new Tetragon(polygon));
+    else objects.push_back(new PolygonG(polygon));
+}
+
 RayTracer::RayTracer() {}
 
 std::pair<Ray, bool> RayTracer::traceRay(const Ray& ray) {

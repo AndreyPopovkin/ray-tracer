@@ -1,11 +1,16 @@
 #include "triangle.h"
-#include <iostream>
 
 Triangle::Triangle(const Point& p1, const Point& p2, const Point& p3)
             : p1(p1), p2(p2), p3(p3) {
     //p.push_back(p1);
     //p.push_back(p2);
     //p.push_back(p3);
+}
+
+Triangle::Triangle(const PolygonG& polygon) {
+    p1 = polygon.p[0];
+    p2 = polygon.p[1];
+    p3 = polygon.p[2];
 }
 
 Triangle::Triangle() {

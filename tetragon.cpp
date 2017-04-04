@@ -14,6 +14,10 @@ Tetragon::Tetragon() {
     p.emplace_back();
 }
 
+Tetragon::Tetragon(const PolygonG& polygon) {
+    p = polygon.p;
+}
+
 Tetragon::~Tetragon() {}
 
 Point Tetragon::getP(int ind) {

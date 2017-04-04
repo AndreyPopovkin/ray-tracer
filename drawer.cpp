@@ -18,8 +18,8 @@ void Drawer::update() {
     SDL_RenderPresent(renderer);
 }
 
-void Drawer::draw(int x, int y, Uint32 color) {
-    pixels[y * widthScreenResolution + x] = color;
+void Drawer::draw(int x, int y, ColorRGB color) {
+    pixels[y * widthScreenResolution + x] = color.getUint();
 }
 
 bool Drawer::getWindowEvents() {

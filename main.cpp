@@ -1,6 +1,6 @@
 #include "header.h"
 
-const int triangPrecision = 300;
+const int triangPrecision = 50;
 
 Point getPoint(Sphere sphere, double sx, double sy) {
     double r = sphere.r;
@@ -9,10 +9,10 @@ Point getPoint(Sphere sphere, double sx, double sy) {
     return sphere.center + Vector(r * cos(a) * sin(b), r * sin(a) * sin(b), r * cos(b));
 }
 
-void triangulateSphere(Scene& scene, Sphere sphere) {
+void triangulateSphere(Scene* scene, Sphere sphere) {
     for (int i = 0; i < triangPrecision; ++i) {
         for (int q = 0; q < triangPrecision; ++q) {
-            scene.pushTetragon(Tetragon(
+            scene->pushTetragon(Tetragon(
                 getPoint(sphere, i, q),
                 getPoint(sphere, i, q + 1),
                 getPoint(sphere, i + 1, q + 1),
@@ -22,80 +22,125 @@ void triangulateSphere(Scene& scene, Sphere sphere) {
     }
 }
 
+void parce_obj(Scene*& scene, std::string fileName) {
+    Parcer parcer(fileName);
+    
+    auto v = parcer.parce();
+    
+    for (auto item : v) 
+        if (item.p.size() == 3)
+            scene->pushTriangle((Triangle)(item));
+        else scene->pushPolygon(item);
+}
+
+void prepare_mersedes(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(-10000, 20, 0),
+                    Vector(6000, 0, 0),
+                    Vector(0, 0, -1),
+                    50, 50
+                ),
+                900, 900
+            );
+    scene->pushStar(Star(Point(-10000, 3000, 3000)));
+    
+    parce_obj(scene, "Z3_OBJ.obj");
+}
+
+void prepare_female(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(10000, 4.1, 0),
+                    Vector(-6000, 0, 0),
+                    Vector(0, 0, 1),
+                    0.5, 0.5
+                ));
+    scene->pushStar(Star(Point(10000, 1000, -10000)));
+
+    parce_obj(scene, "Cartoon_female_base_model_002_clean_mesh.obj");
+}
+
+void prepare_audi(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(0, 2, 10000),
+                    Vector(0, 0, -6000),
+                    Vector(-1, 0, 0),
+                    4, 3
+                ),
+                800, 600
+            );
+    scene->pushStar(Star(Point(1000, 1000, 10000)));
+
+    parce_obj(scene, "Audi+RS7+Sport+Perfomance.obj");
+}
+
+void prepare_triangulated_sphere(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(-10000, 0, 0),
+                    Vector(6000, 0, 0),
+                    Vector(0, 0, 1),
+                    200, 150
+                ));
+    scene->pushStar(Star(Point(-10000, 1000, -10000)));
+
+    triangulateSphere(scene, Sphere(Point(0, 0, 0), 100));
+}
+
+void prepare_sphere(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(-10000, 0, 0),
+                    Vector(6000, 0, 0),
+                    Vector(0, 0, 1),
+                    200, 150
+                ));
+    scene->pushStar(Star(Point(-10000, 1000, -10000)));
+    
+    scene->pushSphere(Sphere(Point(0, 0, 0), 100));
+}
+
+void prepare_test(Scene*& scene) {
+    scene = new Scene(VisualSys(
+                    Point(-10000, 0, 0),
+                    Vector(6000, 0, 0),
+                    Vector(0, 0, 1),
+                    200, 200
+                ),
+                800, 800
+            );
+    scene->pushStar(Star(Point(-10000, -10000, -10000)));
+    scene->pushStar(Star(Point(-10000, 10000, -10000)));
+    scene->pushStar(Star(Point(-10000, 10000, 10000)));
+    scene->pushStar(Star(Point(-10000, -10000, 10000)));
+    
+    scene->pushSphere(Sphere(Point(0, 0, 0), 30));
+    scene->pushTetragon(Tetragon(
+            Point(30, -150, 150),
+            Point(30, 150, 150),
+            Point(30, 150, -150),
+            Point(30, -150, -150)
+        ));
+}
+
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow )
 {
-    Tetragon screen(
-            Point(4000, 320 / 300. / 3 + 2.5, -330 / 300. / 3),
-            Point(4000, 320 / 300. / 3 + 2.5, 330 / 300. / 3),
-            Point(4000, -320 / 300. / 3 + 2.5, 330 / 300. / 3),
-            Point(4000, -320 / 300. / 3 + 2.5, -330 / 300. / 3)
-        );
-    Scene scene(Point(10000, 0, 0), screen, 640, 480, 4);
-    
-    /*
-    Tetragon screen(
-            Point(4000, 320 / 400. + 3.1, -330 / 400.),
-            Point(4000, 320 / 400. + 3.1, 330 / 400.),
-            Point(4000, -320 / 400. + 3.1, 330 / 400.),
-            Point(4000, -320 / 400. + 3.1, -330 / 400.)
-        );
-    Scene scene(Point(10000, 3.1, 0), screen, 640, 480, 4);
-    */
-    Parcer parcer("Cartoon_female_base_model_002_clean_mesh.obj");
-    scene.pushStar(Star(Point(10000, 1000, 1000)));
-    
+    Scene* scene = nullptr;
+    //prepare_mersedes(scene);
+    //prepare_female(scene);
+    //prepare_triangulated_sphere(scene);
+    //prepare_sphere(scene);
+    prepare_audi(scene);
+    //prepare_test(scene);
 
-    //Parcer parcer("04.obj");
-
-    /*
-    Tetragon screen(
-        Point(0, 320 / 2, -230 / 2),
-        Point(0, 320 / 2, 230 / 2),
-        Point(0, -320 / 2, 230 / 2),
-        Point(0, -320 / 2, -230 / 2)
-    );
-    Scene scene(Point(-10000, 10000, 10000), screen, 640, 480, 4);
-    scene.pushStar(Star(Point(10000, 1000, 1000)));
-    Parcer parcer("Z3_OBJ.obj");
-    */
-    auto v = parcer.parce();
-    std::cout << "all " << v.first.size() << "triangles\n";
-    std::cout << "and " << v.second.size() << " tetragons loaded\n";
-
-    for (auto item : v.first)
-        scene.pushTriangle(item);
-    for (auto item : v.second)
-        scene.pushTetragon(item);
-    
-    /*
-    Tetragon screen(
-        Point(4000, -440, 320 ),
-        Point(4000, 440, 320 ),
-        Point(4000, 440, -320 ),
-        Point(4000, -440, -320 )
-    );
-    Scene scene(Point(-10000, 0, 0), screen, 640, 480, 4);
-    scene.pushStar(Star(Point(-10000, 1000, 1000)));
-    scene.pushSphere(Sphere(Point(0, 0, 0), 100));
-    */
-
-    //scene.pushSphere(Sphere(Point(100, 250, 0), 40));
-    //scene.pushSphere(Sphere(Point(100, -250, 0), 40));
-    //scene.pushSphere(Sphere(Point(100, 0, 250), 40));
-    //triangulateSphere(scene, Sphere(Point(0, 0, 0), 100));
-    //scene.pushSphere(Sphere(Point(0, 0, -250), 40));
-    //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(50, 100, 0), Point(50, 0, 100)));
-    //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(90, -100, 0), Point(60, 0, 100)));
-    //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(50, 100, 0), Point(70, 0, -100)));
-    //scene.pushTriangle(Triangle(Point(100, 0, 0), Point(90, -100, 0), Point(80, 0, -100)));
-    //scene.pushStar(Star(Point(-10000, 10000, 10000)));
-    //double t = clock();
-    scene.update();
-    //std::cout << (clock() - t) / CLOCKS_PER_SEC << "\n";
-    while (scene.getWindowEvents()) SDL_Delay(200);
+    if (scene == nullptr) {
+        std::cout << "prepare returns nullptr :(\n";
+        return 0;
+    }
+    scene->update();
+    while (scene->getWindowEvents()) {
+        SDL_Delay(200);
+    }
 
     return 0;
 }

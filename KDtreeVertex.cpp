@@ -105,19 +105,10 @@ double KDtreeVertex::f(double x, int axis, int n_l, int n_r, bool check) {
     // f(x) = C_t + C_i *   (SA_L(x) * N_L(x) + SA_R(x) * N_R(X))   / SA_parent
     Point minCenter = minPos;
     Point maxCenter = maxPos;
-    //std::cout << n_l << ' ' << n_r << "\n";
     minCenter.setByAxis(axis, x);
     maxCenter.setByAxis(axis, x);
-    //std::cout << minCenter << ' ' << maxCenter << "\n";
-    //std::cout << minPos << ' ' << maxPos << "\n";
     double leftCost = vertexArea(maxCenter - minPos) * n_l;
     double rightCost = vertexArea(maxPos - minCenter) * n_r;
-    if (check) {
-        std::cout << "!!! " << n_l << ' ' << n_r << "\n";
-        std::cout << leftCost << ' ' << rightCost << ' ' << (vertexArea(maxCenter - minPos) + vertexArea(maxPos - minCenter)) << "\n";
-    }
-    //std::cout << (maxPos - minCenter) << "\n";
-    //std::cout << leftCost << ' ' << rightCost << ' ' << (vertexArea(maxCenter - minPos) + vertexArea(maxPos - minCenter)) << "\n";
     if (rightCost < 0) throw 1;
     return SAH_C_t + SAH_C_i * (leftCost + rightCost) / 
         (vertexArea(maxCenter - minPos) + vertexArea(maxPos - minCenter));

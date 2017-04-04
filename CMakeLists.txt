@@ -18,8 +18,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 
 
 set(SOURCE_FILES main.cpp point.cpp vector.cpp sphere.cpp 
-    drawer.cpp scene.cpp ray.cpp rayTracer.cpp star.cpp tetragon.cpp
-    triangle.cpp polygon.cpp KDtree.cpp KDtreeVertex.cpp
+    drawer.cpp scene.cpp ray.cpp rayTracer.cpp star.cpp polygonG.cpp tetragon.cpp
+    triangle.cpp KDtree.cpp KDtreeVertex.cpp
     )
 
 add_executable(trace ${SOURCE_FILES})
