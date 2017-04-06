@@ -100,7 +100,7 @@ ColorRGB Scene::getTracedColor(const Ray& sight) {
     std::pair<Ray, bool> intersection = rayTracer.traceRay(sight);
     if (!intersection.second) return ColorRGB("black");
     else {
-        double bright = 0.1;
+        double bright = 0.01;
         for (auto star : stars) {
             Ray starRay(intersection.first.source, star.position - intersection.first.source);
             double cos_ = (starRay.direction.scale(1) * intersection.first.direction.scale(1));
@@ -178,4 +178,8 @@ bool Scene::getWindowEvents() {
 
 void Scene::shiftAlongAxis(double dpos, int axis) {
     screen.shiftAlongAxis(dpos, axis);
+}
+
+void Scene::printPng(std::string filename) {
+    drawer.printPng(filename);
 }

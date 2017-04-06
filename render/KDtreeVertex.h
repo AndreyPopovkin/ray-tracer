@@ -1,13 +1,13 @@
 #ifndef RAY_TRACER_KDTREEVERTEX
 #define RAY_TRACER_KDTREEVERTEX
 
-#include "object.h"
+#include "../geometry/object.h"
 #include <vector>
 #include <algorithm>
-#include "point.h"
-#include "vector.h"
-#include "ray.h"
-#include "tetragon.h"
+#include "../geometry/point.h"
+#include "../geometry/vector.h"
+#include "../geometry/ray.h"
+#include "../geometry/tetragon.h"
 
 const double KDtreeVertexEPS = 1E-9;
 
@@ -47,6 +47,7 @@ public:
 
     explicit KDtreeVertex(std::vector<Object*>& objects, bool fixed=0, 
                             const Point& min_=Point(), const Point& max_=Point(), int step=0);
+    ~KDtreeVertex();
 
     void print();
     double vertexArea(const Vector& dimentions);

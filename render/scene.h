@@ -4,19 +4,20 @@
 #include <vector>
 #include <mutex>
 #include <atomic>
-#include "polygonG.h"
-#include "sphere.h"
-#include "ray.h"
-#include "point.h"
+#include "../geometry/polygonG.h"
+#include "../geometry/sphere.h"
+#include "../geometry/ray.h"
+#include "../geometry/point.h"
 #include "star.h"
-#include "tetragon.h"
-#include "triangle.h"
-#include "vector.h"
-#include "drawer.h"
+#include "../geometry/tetragon.h"
+#include "../geometry/triangle.h"
+#include "../geometry/vector.h"
+#include "../graphics/drawer.h"
 #include "rayTracer.h"
 #include "visualSys.h"
 #include <thread>
 #include <iostream>
+#include <string>
 
 class Scene{
     VisualSys screen;
@@ -50,6 +51,7 @@ public:
     void pushStar(const Star&);
     bool getWindowEvents();
     void shiftAlongAxis(double, int);
+    void printPng(std::string filename);
 };
 
 #endif

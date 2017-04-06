@@ -5,10 +5,14 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "point.h"
+#include "../geometry/point.h"
 #include <chrono>
-#include "polygonG.h"
-#include "triangle.h"
+#include "../geometry/polygonG.h"
+#include "../geometry/triangle.h"
+
+using std::string;
+using std::ifstream;
+using std::istringstream;
 
 class Parcer{
     string filename;

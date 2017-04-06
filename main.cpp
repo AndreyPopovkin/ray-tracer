@@ -1,6 +1,26 @@
-#include "header.h"
+#include <algorithm>
+#include <cmath>
+#include <windows.h>
+#include <iostream>
+#include <fstream>
+#include <ctime>
+#include <vector>
+#include <cmath>
+#include <chrono>
+#include <atomic>
+#include <string>
+
+const int WINDOW_WIDTH = 640;
+const int WINDOW_HEIGHT = 480;
+const double PI = 3.14159265359;
+
+#include "SDL2mingw\x86_64-w64-mingw32\include\SDL2\SDL.h"
+#include "render/scene.h"
+#include "render/parcer.h"
+#include "render/visualSys.h"
 
 const int triangPrecision = 50;
+std::string pngName = "test.png";
 
 Point getPoint(Sphere sphere, double sx, double sy) {
     double r = sphere.r;
@@ -43,8 +63,8 @@ void prepare_mersedes(Scene*& scene) {
                 900, 900
             );
     scene->pushStar(Star(Point(-10000, 3000, 3000)));
-    
-    parce_obj(scene, "Z3_OBJ.obj");
+    pngName = "mersedes.png";
+    parce_obj(scene, "resource/Z3_OBJ.obj");
 }
 
 void prepare_female(Scene*& scene) {
@@ -54,9 +74,10 @@ void prepare_female(Scene*& scene) {
                     Vector(0, 0, 1),
                     0.5, 0.5
                 ));
-    scene->pushStar(Star(Point(10000, 1000, -10000)));
+    scene->pushStar(Star(Point(10000, 1000, 1000)));
+    pngName = "female.png";
 
-    parce_obj(scene, "Cartoon_female_base_model_002_clean_mesh.obj");
+    parce_obj(scene, "resource/Cartoon_female_base_model_002_clean_mesh.obj");
 }
 
 void prepare_audi(Scene*& scene) {
@@ -68,9 +89,11 @@ void prepare_audi(Scene*& scene) {
                 ),
                 800, 600
             );
-    scene->pushStar(Star(Point(1000, 1000, 10000)));
+    scene->pushStar(Star(Point(-10000, 10000, 10000)));
+    //scene->pushStar(Star(Point(-10000, 10000, 10000)));
+    pngName = "audi.png";
 
-    parce_obj(scene, "Audi+RS7+Sport+Perfomance.obj");
+    parce_obj(scene, "resource/Audi+RS7+Sport+Perfomance.obj");
 }
 
 void prepare_triangulated_sphere(Scene*& scene) {
@@ -81,6 +104,7 @@ void prepare_triangulated_sphere(Scene*& scene) {
                     200, 150
                 ));
     scene->pushStar(Star(Point(-10000, 1000, -10000)));
+    pngName = "triSphere.png";
 
     triangulateSphere(scene, Sphere(Point(0, 0, 0), 100));
 }
@@ -93,6 +117,7 @@ void prepare_sphere(Scene*& scene) {
                     200, 150
                 ));
     scene->pushStar(Star(Point(-10000, 1000, -10000)));
+    pngName = "sphere.png";
     
     scene->pushSphere(Sphere(Point(0, 0, 0), 100));
 }
@@ -138,6 +163,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         return 0;
     }
     scene->update();
+    scene->printPng(pngName);
     while (scene->getWindowEvents()) {
         SDL_Delay(200);
     }

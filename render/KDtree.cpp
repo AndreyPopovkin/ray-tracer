@@ -50,3 +50,8 @@ std::pair<Ray, bool> KDtree::traceRay(const Ray& ray, const KDtreeVertex* vert) 
         return traceRay(ray, vert->l);
     }
 }
+
+KDtree::~KDtree() {
+    if (root != nullptr)
+        delete root;
+}

@@ -2,11 +2,11 @@
 #define RAY_TRACER_RAYTRACER
 
 #include <vector>
-#include "polygonG.h"
-#include "sphere.h"
-#include "triangle.h"
-#include "ray.h"
-#include "tetragon.h"
+#include "../geometry/polygonG.h"
+#include "../geometry/sphere.h"
+#include "../geometry/triangle.h"
+#include "../geometry/ray.h"
+#include "../geometry/tetragon.h"
 #include "KDtree.h" 
 
 class RayTracer{

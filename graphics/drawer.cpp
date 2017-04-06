@@ -45,3 +45,8 @@ Drawer::~Drawer() {
 Uint32 Drawer::getColor(int x, int y) {
     return pixels[y * widthScreenResolution + x];
 }
+
+void Drawer::printPng(std::string filename) {
+    Encoder encoder;
+    encoder.encode(widthScreenResolution, heightScreenResolution, pixels, filename);
+}

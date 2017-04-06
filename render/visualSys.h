@@ -1,10 +1,10 @@
 #ifndef RAY_TRACER_VISUALSIS
 #define RAY_TRACER_VISUALSIS
 
-#include "point.h"
-#include "tetragon.h"
-#include "ray.h"
-#include "vector.h"
+#include "../geometry/point.h"
+#include "../geometry/tetragon.h"
+#include "../geometry/ray.h"
+#include "../geometry/vector.h"
 
 class VisualSys{
     Point eye;

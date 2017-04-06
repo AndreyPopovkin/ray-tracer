@@ -2,15 +2,6 @@
 
 KDtreeVertex::KDtreeVertex(std::vector<Object*>& objects, 
                             bool fixed, const Point& min_, const Point& max_, int step) {
-    //std::cout << objects.size() << "\n";
-    /*
-    if (step > 3) {
-        // ends splitting process
-        elements = new std::vector<Object*>(objects);
-        l = r = nullptr;
-        return;
-    }
-    */
     if (objects.size() == 0 && !fixed) throw 1;
     if (!fixed) {
         minPos.setx(objects[0]->minPos(0));
@@ -31,7 +22,6 @@ KDtreeVertex::KDtreeVertex(std::vector<Object*>& objects,
         minPos = min_;
         maxPos = max_;
     }
-    //std::cout << "{" << objects.size() << ' ' << step << '\n' << minPos << "\n" << maxPos << "}\n";
     double bestReit = 0;
     double bestPos = 0;
     int bestAxis = -1;
@@ -53,9 +43,7 @@ KDtreeVertex::KDtreeVertex(std::vector<Object*>& objects,
         int ptr2 = 0;
         for (ptr1 = 1; ptr1 < size; ++ptr1) {
             while (objMinPos[ptr1] - KDtreeVertexEPS > objMaxPos[ptr2]) ++ptr2;
-            //std::cout << "! " << objMinPos[ptr1] - KDtreeVertexEPS << ' ' << objMinPos[ptr1] << ' ' << minPos.getx() << "\n";
             double tmpF = f(objMinPos[ptr1] - KDtreeVertexEPS, axis, ptr1, size - ptr2);
-            //std::cout << ptr1 << ' ' << ptr2 << ' ' << tmpF << "\n";
             if (bestAxis == -1 || bestReit + KDtreeVertexEPS > tmpF) {
                 bestAxis = axis;
                 bestPos = objMinPos[ptr1] - KDtreeVertexEPS;
@@ -63,7 +51,6 @@ KDtreeVertex::KDtreeVertex(std::vector<Object*>& objects,
             }
         }
     }
-    //std::cout << bestReit << ' ' << SAH_C_i * size << "\n";
     if (bestAxis == -1 || bestReit >= SAH_C_i * size) {
         // ends splitting process
         elements = new std::vector<Object*>(objects);
@@ -94,11 +81,6 @@ KDtreeVertex::KDtreeVertex(std::vector<Object*>& objects,
 
 double KDtreeVertex::vertexArea(const Vector& dimentions) {
     return dimentions.getx() * dimentions.gety() * dimentions.getz();
-            /*
-            dimentions.getx() * dimentions.gety() +
-            dimentions.gety() * dimentions.getz() +
-            dimentions.getz() * dimentions.getx();
-            */
 }
 
 double KDtreeVertex::f(double x, int axis, int n_l, int n_r, bool check) {
@@ -152,4 +134,13 @@ bool KDtreeVertex::intersect(const Ray& ray) const {
     }
 
     return 0;
+}
+
+KDtreeVertex::~KDtreeVertex() {
+    if (elements == nullptr) {
+        delete l;
+        delete r;
+    } else {
+        delete elements;
+    }
 }
